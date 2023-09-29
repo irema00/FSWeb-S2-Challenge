@@ -100,14 +100,20 @@ function cumleKur(
 /* (Oto test yok) cumleKur fonksiyonuna yalnızca 1 parametre göndererek "Hello World!" stringini elde edin, 
 sonucu konsolde gözlemleyin */
 
+let sonuc1 = cumleKur("Hello World!");
+console.log(sonuc1);
+
 /* (Oto test yok) cumleKur fonksiyonuna yalnızca 2 parametre göndererek "Hello World!" stringini elde edin, 
 sonucu konsolde gözlemleyin */
+let sonuc2 = cumleKur("Hello ", "World!");
+console.log(sonuc2);
 
 /* (Oto test var) cumleKur fonksiyonuna 5 parametre göndererek "Ben iyi bir yazılımcı olacağım!" stringini 
 elde edin, sonucu `bircumle` değişkenine atayın ve konsolde gözlemleyin */
 var bircumle;
 
-/* kodlar buraya */
+bircumle = cumleKur("Ben ", "iyi ", "bir ", "yazılımcı ", "olacağım!");
+console.log("Örnek 1 :", bircumle);
 
 //		Sayfanın en üstünde global olarak tanımlanmış `cumleler` adında bir dizi bulunmaktadır. Bu dizinin
 // içinde en çok 5 en az 1 adet string bulunan diziler bulunmaktadır.Aşağıdaki görevlerde aksi
@@ -128,9 +134,14 @@ var bircumle;
 			5. Oluşturulan yeni dizi döndürülecek.
 	*/
 
-function cumlelereDonustur(/* kodlar buraya */) {
-  /* kodlar buraya */
+function cumlelereDonustur(dizi, bosluk = ",") {
+  const yenicumle = dizi.map(function (cumle) {
+    return cumle.join(bosluk);
+  });
+
+  return yenicumle;
 }
+console.log("Görev 1: ", cumlelereDonustur(cumleler, " "));
 
 /* GÖREV 2:
 		paragrafOlustur fonksiyonuna aşağıdakileri uygulayın.
@@ -145,16 +156,42 @@ function cumlelereDonustur(/* kodlar buraya */) {
 			6. Oluşturulan paragraf döndürülecek
 	*/
 
-function paragrafOlustur(/* kodlar buraya */) {
-  /* kodlar buraya */
+// function paragrafOlustur(cumlelerdizisi, cumleKur, cumlelereDonustur) {
+//   const yenicumleler = cumlelereDonustur(cumlelerdizisi, " ");
+
+//   for (let i = 0; i < 5; i++) {
+//     if (cumlelerdizisi[i] % 2 === 1) {
+//       return cumlelerdizisi[i] < 5;
+//     }
+//   }
+//   return yenicumleler;
+// }
+
+function paragrafOlustur(
+  cumlelerDizisi,
+  cumleKurCallback,
+  cumlelereDonusturCallback
+) {
+  const cumleler = cumlelereDonusturCallback(cumlelerDizisi, " ");
+  const dizininIlkBesElemani = cumleler.filter(function (_, index) {
+    return [1, 3, 5, 7, 9].includes(index);
+  });
+  const paragraf = cumleKurCallback(...dizininIlkBesElemani);
+  return paragraf;
 }
+console.log(
+  "Görev 2: ",
+  paragrafOlustur(cumleler, cumleKur, cumlelereDonustur)
+);
 
 /* 	GÖREV 3:
 		Yukarıda isimleri sebzeler ve meyveler olan 2 dizi bulunmaktadır. Bu dizileri kullanarak aşağıdaki görevleri tamamlayın.
 			3a. meyveler dizisinin ilk ve son elemanlarını diziden çıkartın. (.pop ve .shift metodlarını kullanın)
  */
 //3a çözümü
-/* kodlar buraya */
+
+console.log("Görev 3a:", meyveler.shift(), meyveler.pop());
+console.log("Görev 3a:", meyveler);
 
 /* 			3b.  Bir tavşan ve bir kirpi arkadaşlar sebzeler dizimizin peşine düştü. Tavşan => 🐇 , Kirpi=> 🦔 , 
 Tavşanla kirpi sebzeleri ele geçirmek için bir plan kurdular. Tavşan diziye önden saldıracak, kirpi ise 
@@ -162,15 +199,17 @@ arkalarından dolaşacak. Varsayalım ki arkadaşların planları başarılı ol
 Kirpiyi dizinin son elemanına ekleyin 🦔
  */
 //3b çözümü
-/* kodlar buraya */
+
+console.log("Görev 3b:", sebzeler.unshift("🐇"), sebzeler.push("🦔"));
+console.log(sebzeler);
 
 /* 			3c. manav isminde bir dizi oluşturun.`meyveler` dizisi ilk elemanlara, `sebzeler` dizisi son 
 elemanlara denk gelecek şekilde, iki diziyi birleştirip sonucu manav dizisine aktarın. (.concat metodu)
  */
 //3c çözümü
-/* kodlar buraya */
-
 var manav;
+manav = meyveler.concat(sebzeler);
+console.log(manav);
 
 /* 	GÖREV 4:
 		Yeni kurulmuş bir mesajlaşma startup firması atılan mesajları emojilerle zenginleştirmek istiyor. 
@@ -189,8 +228,21 @@ var manav;
 			4. elde edilen string döndürülecek
  */
 
-function emojileriDonustur(/* kodlar buraya */) {
-  /* kodlar buraya */
+function emojileriDonustur(mesaj = "", emojiler) {
+  let donusturulmusMesaj = mesaj;
+
+  for (let sembol in emojiler) {
+    const emoji = emojiler[sembol];
+    const semboller = [sembol, sembol.toLowerCase(), sembol.toUpperCase()];
+
+    for (const sembolDuzenlenmis of semboller) {
+      donusturulmusMesaj = donusturulmusMesaj
+        .split(sembolDuzenlenmis)
+        .join(emoji);
+    }
+  }
+
+  return donusturulmusMesaj;
 }
 
 /*  Bu satırın aşağısındaki kodları lütfen değiştirmeyin  */
