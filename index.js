@@ -228,23 +228,15 @@ console.log(manav);
 			4. elde edilen string döndürülecek
  */
 
-function emojileriDonustur(mesaj = "", emojiler) {
-  let donusturulmusMesaj = mesaj;
-
-  for (let sembol in emojiler) {
-    const emoji = emojiler[sembol];
-    const semboller = [sembol, sembol.toLowerCase(), sembol.toUpperCase()];
-
-    for (const sembolDuzenlenmis of semboller) {
-      donusturulmusMesaj = donusturulmusMesaj
-        .split(sembolDuzenlenmis)
-        .join(emoji);
-    }
+function emojileriDonustur(mesaj, emojiler) {
+  for (var sembol in emojiler) {
+    mesaj = mesaj.replaceAll(sembol.toLowerCase(), emojiler[sembol]);
+    mesaj = mesaj.replaceAll(sembol.toUpperCase(), emojiler[sembol]);
   }
-
-  return donusturulmusMesaj;
+  return mesaj;
 }
 
+console.log(emojileriDonustur("selam :d", emojiler));
 /*  Bu satırın aşağısındaki kodları lütfen değiştirmeyin  */
 function sa() {
   console.log("Kodlar çalışıyor");
